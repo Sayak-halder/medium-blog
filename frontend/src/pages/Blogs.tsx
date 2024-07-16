@@ -24,6 +24,7 @@ const Blogs = () => {
     <div className="flex justify-center">
       <div>
         {blogs.map(blog=><BlogCard
+          key={blog.id}
           id={blog.id}
           title={blog.title}
           authorName={blog.author.name||"Anonymous"}

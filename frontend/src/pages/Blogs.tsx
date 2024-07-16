@@ -1,15 +1,23 @@
 import Appbar from "../components/Appbar";
 import BlogCard from "../components/BlogCard";
+import { Spinner } from "../components/Spinner";
 import { useBlogs } from "../hooks";
 
 const Blogs = () => {
   const {loading,blogs}=useBlogs();
 
-  if(loading){
+  if (loading) {
     return <div>
-      loading...
+        <Appbar />
+    
+        <div className="h-screen flex flex-col justify-center">
+            
+            <div className="flex justify-center">
+                <Spinner />
+            </div>
+        </div>
     </div>
-  }
+}
 
   return (<div>
       <Appbar/>
@@ -20,7 +28,7 @@ const Blogs = () => {
           title={blog.title}
           authorName={blog.author.name||"Anonymous"}
           content={blog.content}
-           publishedDate={"13 June"}
+          publishedDate={"13 June"}
         />)}
       </div>
     </div>

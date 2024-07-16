@@ -5,7 +5,7 @@ import axios from "axios";
 import {BACKEND_URL} from "../config";
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
-  const [postInputs, setpostInputs] = useState<SignupInput|SigninInput>({
+  const [postInputs, setpostInputs] = useState<SignupInput>({
     email: "",
     password: "",
     name: ""
@@ -15,7 +15,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
   async function sendRequest(){
     try{
       const res=await axios.post(`${BACKEND_URL}/api/v1/user/${type==="signup"?"signup":"signin"}`,postInputs)
-      const jwt=(res.data.jwt);
+      const jwt=(res.data);
       localStorage.setItem("token",jwt);
       // console.log(jwt.text);
       navigate('/blogs');
@@ -43,7 +43,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
             </div>
           </div>
           <div className="grid-rows-2 pt-4">
-          <LabledInput
+          {type=="signup"?<LabledInput
               label="Username"
               placeholder="Enter your username.."
               onChange={(e) => {
@@ -53,7 +53,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                 });
               }}
               type="text"
-            />
+            />:<></>}
             <LabledInput
               label="Email"
               placeholder="Enter your email.."

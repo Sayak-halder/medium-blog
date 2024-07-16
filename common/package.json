@@ -1,5 +1,5 @@
 {
-  "name": "@neom009/medium-common",
+  "name": "@neom009/medium-common-v1",
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {

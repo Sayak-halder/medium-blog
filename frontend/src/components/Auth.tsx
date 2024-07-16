@@ -1,21 +1,23 @@
-import { SigninInput, SignupInput } from "@neom009/medium-common";
+import { SigninInput, SignupInput } from "@neom009/medium-common-v1";
 import { ChangeEventHandler, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {BACKEND_URL} from "../config";
 
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
-  const [postInputs, setpostInputs] = useState<SigninInput | SignupInput>({
+  const [postInputs, setpostInputs] = useState<SignupInput|SigninInput>({
     email: "",
     password: "",
+    name: ""
   });
   const navigate=useNavigate();
 
   async function sendRequest(){
     try{
       const res=await axios.post(`${BACKEND_URL}/api/v1/user/${type==="signup"?"signup":"signin"}`,postInputs)
-      const jwt=res.data;
+      const jwt=(res.data.jwt);
       localStorage.setItem("token",jwt);
+      // console.log(jwt.text);
       navigate('/blogs');
     }catch(err){
       console.log(err)
@@ -41,6 +43,17 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
             </div>
           </div>
           <div className="grid-rows-2 pt-4">
+          <LabledInput
+              label="Username"
+              placeholder="Enter your username.."
+              onChange={(e) => {
+                setpostInputs({
+                  ...postInputs,
+                  email: e.target.value,
+                });
+              }}
+              type="text"
+            />
             <LabledInput
               label="Email"
               placeholder="Enter your email.."
